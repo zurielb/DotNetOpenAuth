@@ -7,6 +7,7 @@
 namespace DotNetOpenAuth.OAuth.Messages {
 	using System;
 	using System.Globalization;
+	using DotNetOpenAuth.Configuration;
 	using DotNetOpenAuth.Messaging;
 
 	/// <summary>
@@ -54,7 +55,7 @@ namespace DotNetOpenAuth.OAuth.Messages {
 		protected override void EnsureValidMessage() {
 			base.EnsureValidMessage();
 
-			if (this.ExtraData.Count > 0) {
+			if (this.ExtraData.Count > 0 && DotNetOpenAuthSection.Messaging.Strict) {
 				throw new ProtocolException(string.Format(CultureInfo.CurrentCulture, OAuthStrings.MessageNotAllowedExtraParameters, GetType().Name));
 			}
 		}
